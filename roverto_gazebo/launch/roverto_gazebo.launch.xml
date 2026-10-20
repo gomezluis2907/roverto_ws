@@ -6,7 +6,7 @@
 
     <!-- World path -->
     <let name="sdf_path"
-         value="$(find-pkg-share roverto_gazebo)/worlds/empty.world" />
+         value="$(find-pkg-share roverto_gazebo)/worlds/tunnel.sdf" />
 
     <!-- Robot State Publisher initialization -->
     <node pkg="robot_state_publisher" exec="robot_state_publisher">
