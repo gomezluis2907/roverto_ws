@@ -8,6 +8,10 @@
     <let name="sdf_path"
          value="$(find-pkg-share roverto_gazebo)/worlds/tunnel.sdf" />
 
+    <!-- Gazebo bridge config path -->
+    <let name="gazebo_config_path"
+         value="$(find-pkg-share roverto_gazebo)/config/gazebo_bridge.yaml" />
+
     <!-- Robot State Publisher initialization -->
     <node pkg="robot_state_publisher" exec="robot_state_publisher">
         <param name="robot_description"
@@ -19,7 +23,7 @@
     <set_env name="GZ_SIM_RESOURCE_PATH"
              value="$(find-pkg-prefix roverto_description)/share" />
 
-    <!-- Gazebo starts with the empty world and simulation running (-r) -->
+    <!-- Gazebo starts with the tunnel world and simulation running (-r) -->
     <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
         <arg name="gz_args" value="-r -v 4 $(var sdf_path)" />
     </include>
@@ -28,15 +32,14 @@
     <node pkg="ros_gz_sim" exec="create"
           args="-name roverto -topic robot_description -z 0.05" />
 
-    <!-- Bridge and RViz will be uncommented once config files are generated
-    <let name="gazebo_config_path"
-         value="$(find-pkg-share roverto_gazebo)/config/gazebo_bridge.yaml" />
-    <let name="rviz_config_path"
-         value="$(find-pkg-share roverto_description)/rviz/roverto.rviz" />
-
+    <!-- Bridge Gazebo topics (/clock, /scan) to ROS 2 -->
     <node pkg="ros_gz_bridge" exec="parameter_bridge">
         <param name="config_file" value="$(var gazebo_config_path)" />
     </node>
+
+    <!-- RViz will be uncommented once the .rviz config is ready
+    <let name="rviz_config_path"
+         value="$(find-pkg-share roverto_description)/rviz/roverto.rviz" />
 
     <node pkg="rviz2" exec="rviz2" output="screen"
           args="-d $(var rviz_config_path)" />
