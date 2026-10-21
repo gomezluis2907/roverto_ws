@@ -3,11 +3,11 @@
   gz_topic_name: "/clock"
   ros_type_name: "rosgraph_msgs/msg/Clock"
   gz_type_name: "gz.msgs.Clock"
-  direction: "FROM_GZ_TO_ROS"
+  direction: "GZ_TO_ROS"
 
 # Bridge Gazebo LiDAR to ROS 2 /scan
 - ros_topic_name: "/scan"
   gz_topic_name: "/scan"
   ros_type_name: "sensor_msgs/msg/LaserScan"
   gz_type_name: "gz.msgs.LaserScan"
-  direction: "FROM_GZ_TO_ROS"
+  direction: "GZ_TO_ROS"
